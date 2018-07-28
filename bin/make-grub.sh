@@ -19,6 +19,6 @@ export output
 
 try cat "${mydir}"/../template/grub.header > "${output}"
 
-try "${mydir}"/ubuntu.sh
+. "${mydir}"/ubuntu || fatal "Error executing ubuntu"
 
 try cat "${mydir}"/../template/grub.footer >> "${output}"

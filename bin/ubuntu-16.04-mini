@@ -1,0 +1,27 @@
+# -*- sh -*-
+
+if [ -e "${mydir}/../iso/ubuntu-mini-16.04-amd64.iso" ]; then
+    found_entry=1
+    menuentry='
+    menuentry "Ubuntu 16.04/Xenial LTS - 64bit Mini-Installer - GA" {
+        set iso="/iso/ubuntu-mini-16.04-amd64.iso"
+        loopback loop $iso
+        linux (loop)/linux boot=casper iso-scan/filename=$iso noprompt noeject
+        initrd (loop)/initrd.gz
+    }
+'
+    all_entries="${all_entries}${menuentry}"
+fi
+
+if [ -e "${mydir}/../iso/ubuntu-mini-16.04-i386.iso" ]; then
+    found_entry=1
+    menuentry='
+    menuentry "Ubuntu 16.04/Xenial LTS - 32bit Mini-Installer - GA" {
+        set iso="/iso/ubuntu-mini-16.04-i386.iso"
+        loopback loop $iso
+        linux (loop)/linux boot=casper iso-scan/filename=$iso noprompt noeject
+        initrd (loop)/initrd.gz
+    }
+'
+    all_entries="${all_entries}${menuentry}"
+fi

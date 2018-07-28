@@ -1,0 +1,27 @@
+# -*- sh -*-
+
+if [ -e "${mydir}/../iso/ubuntu-18.04.1-desktop-amd64.iso" ]; then
+    found_entry=1
+    menuentry='
+    menuentry "Ubuntu Live CD - 18.04 LTS - 64bit Desktop" {
+        set iso="/iso/ubuntu-18.04.1-desktop-amd64.iso"
+        loopback loop $iso
+        linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=$iso noprompt noeject splash --
+        initrd (loop)/casper/initrd.lz
+    }
+'
+    all_entries="${all_entries}${menuentry}"
+fi
+
+if [ -e "${mydir}/../iso/ubuntu-18.04.1-live-server-amd64.iso" ]; then
+    found_entry=1
+    menuentry='
+    menuentry "Ubuntu Live CD - 18.04 LTS - 64bit Server" {
+        set iso="/iso/ubuntu-18.04.1-live-server-amd64.iso"
+        loopback loop $iso
+        linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=$iso noprompt noeject --
+        initrd (loop)/casper/initrd
+    }
+'
+    all_entries="${all_entries}${menuentry}"
+fi
