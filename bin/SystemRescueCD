@@ -1,0 +1,85 @@
+# -*- sh -*-
+
+# SystemRescueCD - http://www.system-rescue-cd.org/Download/
+# menu entries from http://www.system-rescue-cd.org/Installing-SystemRescueCd-on-a-USB-stick/
+
+if [ -e "${mydir}/../iso/systemrescuecd-x86-5.2.2.iso" ]; then
+    menuentry='
+submenu "SystemRescueCD 5.2.2 >>" {
+  set iso="/iso/systemrescuecd-x86-5.2.2.iso"
+  menuentry "SystemRescueCd std-32bit" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/rescue32
+    initrd (loop)/isolinux/initram.igz
+  }
+
+  menuentry "SystemRescueCd std-64bit" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/rescue64
+    initrd (loop)/isolinux/initram.igz
+  }
+
+  menuentry "SystemRescueCd alt-32bit" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/altker32
+    initrd (loop)/isolinux/initram.igz
+  }
+
+  menuentry "SystemRescueCd alt-64bit" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/altker64
+    initrd (loop)/isolinux/initram.igz
+  }
+
+  menuentry "MemTest+" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/memtestp
+    initrd (loop)/bootdisk/initrd.cgz
+  }
+
+  menuentry "NT Password Editor" {
+    loopback loop "($root)$iso"
+    linux (loop)/ntpasswd/vmlinuz
+    initrd (loop)/ntpasswd/initrd.cgz
+  }
+
+  menuentry "Gag" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/memdisk
+    initrd (loop)/bootdisk/gag.img
+  }
+
+  menuentry "MHDD" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/memdisk
+    initrd (loop)/bootdisk/mhdd.img
+  }
+
+  menuentry "Hardware Detection Tool" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/memdisk
+    initrd (loop)/bootdisk/hdt.img
+  }
+
+  menuentry "Aida" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/memdisk
+    initrd (loop)/bootdisk/aida.img
+  }
+
+  menuentry "Ranish Partition Manager" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/memdisk
+    initrd (loop)/bootdisk/ranish.img
+  }
+
+  menuentry "FreeDOS" {
+    loopback loop "($root)$iso"
+    linux (loop)/isolinux/memdisk
+    initrd (loop)/bootdisk/freedos.img
+  }
+
+}
+'
+    echo "${menuentry}" >> "${output}"
+fi

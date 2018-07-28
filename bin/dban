@@ -1,0 +1,14 @@
+# -*- sh -*-
+
+# DBAN - http://www.dban.org/download
+
+if [ -e "${mydir}/../iso/dban-2.3.0_i586.iso" ]; then
+    menuentry='
+menuentry "Darik''s Boot and Nuke" {
+    set iso="/iso/dban-2.3.0_i586.iso"
+    loopback loop $iso
+    linux (loop)/DBAN.BZI nuke="dwipe"
+}
+'
+    echo "${menuentry}" >> "${output}"
+fi

@@ -21,4 +21,6 @@ try cat "${mydir}"/../template/grub.header > "${output}"
 
 . "${mydir}"/ubuntu || fatal "Error executing ubuntu"
 
+. "${mydir}"/utility || fatal "Error executing utility"
+
 try cat "${mydir}"/../template/grub.footer >> "${output}"

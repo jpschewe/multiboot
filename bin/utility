@@ -1,0 +1,18 @@
+# -*- sh -*-
+
+# See other files for download instructions
+#  - gparted
+#  - clonezilla
+#  - SystemRescueCD
+#  - dban
+
+echo 'menuentry "" { true }' >> "${output}"
+
+. "${mydir}"/gparted || fatal "Error running gparted"
+
+. "${mydir}"/clonezilla || fatal "Error running clonezilla"
+
+. "${mydir}"/SystemRescueCD || fatal "Error running SystemRescueCD"
+
+. "${mydir}"/dban || fatal "Error running dban"
+
