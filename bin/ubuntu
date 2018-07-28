@@ -1,0 +1,19 @@
+# -*- sh -*-
+
+# See other files by version
+#  - ubuntu-18.04
+#  - ubuntu-16.04-mini
+
+all_entries=''
+found_entry=0
+
+. "${mydir}"/ubuntu-18.04 || fatal "Error executing Ubuntu 18.04"
+
+. "${mydir}"/ubuntu-16.04-mini || fatal "Error executing 16.04-mini"
+
+if [ ${found_entry} -eq 1 ]; then
+    debug "Found an entry, output submenu"
+    echo "submenu 'Ubuntu >>' {" >> "${output}"
+    echo "${all_entries}" >> "${output}"
+    echo "}" >> "${output}"
+fi

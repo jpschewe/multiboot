@@ -22,6 +22,8 @@ die()   { warn "${@}" 1>&2; exit 1; }
 debug() { test -n "$DEBUG" && echo "DEBUG: ${@}" 1>&2; }
 #usage() { echo "usage: $PROGNAME [USER@]HOST[:PATH] [MOUNT]" 1>&2; }
 
+mydir=$(cd "$(dirname "$0")" && pwd -L) || die "Unable to determine script directory"
+
 [[ `id -u` -eq 0 ]] \
  && die "ERROR: Don't run as root; run as user with sudo access."
 
@@ -71,6 +73,9 @@ $SUDO grub-install --force --recheck --no-floppy --boot-directory=${MNT} ${DEV}
 
 # setup directory structure, copy grub config and iso(s)
 $SUDO mkdir -p ${ISO}
+
+"${mydir}"/make-grub.sh || die "Unable to create grub.cfg"
+
 $SUDO rsync -rv --size-only --no-perms --exclude='.git*' --progress grub iso ${MNT}/
 
 printf "\nComplete.  New bootable device mounted at '${MNT}':\n"

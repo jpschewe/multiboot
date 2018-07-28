@@ -1,0 +1,37 @@
+# -*- sh -*-
+
+# Clonezilla - https://clonezilla.org/downloads.php
+
+
+if [ -e "${mydir}/../iso/clonezilla-live-2.5.5-38-amd64.iso" ]; then
+    menuentry='
+submenu "Clonezilla >>" {
+  menuentry "2.5.5-38 64-bit" --class clonezilla {
+    set iso="/iso/clonezilla-live-2.5.5-38-amd64.iso"
+    loopback loop $iso
+    linux (loop)/live/vmlinuz boot=live findiso=${iso} union=overlay components quiet toram=live,syslinux
+    initrd (loop)/live/initrd.img
+  }
+
+  menuentry "2.5.5-38 32-bit" --class clonezilla {
+    set iso="/iso/clonezilla-live-2.5.5-38-i686.iso"
+    loopback loop $iso
+    linux (loop)/live/vmlinuz boot=live findiso=${iso} union=overlay components quiet toram=live,syslinux
+    initrd (loop)/live/initrd.img
+  }
+
+  # Clonezilla - http://clonezilla.org/clonezilla-live.php
+  # copied "to RAM" option, adding standard "findiso=$iso"
+  menuentry "2.5.5-38 to RAM 64-bit" {
+      set iso="/iso/clonezilla-live-2.5.5-38-amd64.iso"
+      loopback loop $iso
+      search --set -f /live/vmlinuz
+  #    linux (loop)/live/vmlinuz boot=live username=user config quiet noswap edd=on nomodeset nodmraid noeject locales= keyboard-layouts= ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_batch=no vga=791 ip=  nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.enable_fbdev=1 findiso=$iso
+      linux (loop)/live/vmlinuz boot=live username=user config quiet noswap edd=on nomodeset nodmraid noeject locales= keyboard-layouts= ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_batch=no gfxpayload=1280x1024x16,1280x1024 ip=  nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.enable_fbdev=1 findiso=$iso
+      initrd (loop)/live/initrd.img
+  }
+
+}
+'
+    echo "${menuentry}" >> "${output}"
+fi
