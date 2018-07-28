@@ -76,11 +76,13 @@ $SUDO mkdir -p ${ISO}
 
 "${mydir}"/make-grub.sh || die "Unable to create grub.cfg"
 
-$SUDO rsync -rv --size-only --no-perms --exclude='.git*' --progress grub iso ${MNT}/
+$SUDO rsync -rv --size-only --no-perms --exclude='.git*' --progress "${mydir}"/grub "${mydir}"/iso "${mydir}"/bin "${mydir}"/template ${MNT}/
 
 printf "\nComplete.  New bootable device mounted at '${MNT}':\n"
 df | grep -i $SHORTNAME
 (set -x; ls -F ${MNT}; ls -F ${ISO})
+
+printf "You can add new ISOs to the iso directory and then run bin/make-grub.sh o update the grub.cfg file\n"
 
 #$SUDO umount ${MNT}
 
